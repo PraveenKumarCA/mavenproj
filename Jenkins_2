@@ -1,5 +1,5 @@
 node("Slave1") {
- def GIT_BRANCH="maste"'
+ def GIT_BRANCH="master"'
  def GIT_URL="https://github.com/PraveenKumarCA/mavenproj.git"
  def  MAVEN_GOAL='package"
  stage("git"){
