@@ -1,0 +1,14 @@
+node("Slave1") {
+ def GIT_BRANCH='master'
+ def GIT_URL='https://github.com/PraveenKumarCA/mavenproj.git''
+ def  MAVEN_GOAL='package'
+ stage("git"){
+   checkout([$class: 'GitSCM', branches: [[name: '*/${GIT_BRANCH}']], extensions: [], userRemoteConfigs: [[url: ${GIT_URL}]]])
+ }
+ stage("maven") {
+   sh 'mvn ${MAVEN_GOAL} '
+ }
+ stage("tomcat") {
+   deploy adapters: [tomcat9(credentialsId: 'tomcat_user', path: '', url: 'http://52.91.220.37:8080/')], contextPath: 'testenv', war: '**/*.war'
+ }
+}
